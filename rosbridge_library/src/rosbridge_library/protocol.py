@@ -29,6 +29,7 @@
 # LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
+import traceback
 
 import rospy
 import time
@@ -201,7 +202,9 @@ class Protocol:
         try:
             self.operations[op](msg)
         except Exception as exc:
+            tb = traceback.format_exc()
             self.log("error", "%s: %s" % (op, str(exc)), mid)
+            self.log("error", "%s"%tb)
 
         # if anything left in buffer .. re-call self.incoming
         # TODO: check what happens if we have "garbage" on tcp-stack --> infinite loop might be triggered! .. might get out of it when next valid JSON arrives since only data after last 'valid' closing bracket is kept

@@ -30,9 +30,9 @@
 # LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
-
+import time
 from threading import Lock
-from rospy import Subscriber, logerr
+from rospy import Subscriber, logerr, logwarn, loginfo
 from rostopic import get_topic_type
 from rosbridge_library.internal import ros_loader, message_conversion
 from rosbridge_library.internal.topics import TopicNotEstablishedException
@@ -157,6 +157,7 @@ class MultiSubscriber():
         callbacks - subscriber callbacks to invoke
 
         """
+
         outgoing = OutgoingMessage(msg)
 
         # Get the callbacks to call
